@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Crear Usuario</title>
+    <title>Validar Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="pagina.css" rel="stylesheet">
 </head>
@@ -37,16 +36,29 @@
     </div>
   </div>
 </nav>
-        <h1>Iniciar Sesión</h1>
-    <form action="validar_login.jsp" method="post">
-        <label for="usuario">Usuario:</label>
-        <input type="text" id="usuario" name="usuario" required><br><br>
-        
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required><br><br>
-        
-        <input type="submit" value="Iniciar Sesión">
-    </form>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="container mt-5">
+    <h1>Iniciar Sesión</h1>
+    <% 
+        String usuario = request.getParameter("usuario");
+        String contrasena = request.getParameter("contrasena");
+        if (usuario.equals("admin") && contrasena.equals("1234")) {
+            // Si la validación es exitosa, redirigir a la página de inicio
+    %>
+            <div class="alert alert-success" role="alert">
+                Usuario verificado con éxito.
+            </div>
+            <a href="contacto.jsp" class="btn btn-primary">Ir al Menú Contacto</a>
+    <% } else {
+            // Si la validación falla, mostrar mensaje de error y ofrecer enlace para crear usuario nuevamente
+    %>
+            <div class="alert alert-danger" role="alert">
+                Error de inicio de sesión. El usuario o la contraseña son incorrectos. 
+                Por favor, intenta nuevamente.
+            </div>
+            <a href="crearLogin.jsp" class="btn btn-primary">Crear Usuario</a>
+    <% } %>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
